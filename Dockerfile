@@ -1,5 +1,4 @@
-FROM centos:7
+FROM centos/httpd-24-centos7
 
-RUN yum -y install httpd php
-
-CMD tail -f /dev/null
+CMD ["/usr/bin/run-httpd"]
+#CMD tail -f /dev/null
