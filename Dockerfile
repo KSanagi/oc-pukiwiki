@@ -1,7 +1,5 @@
 FROM centos/httpd-24-centos7
 
-#COPY index.html /var/www/html/
-
 USER root
 RUN yum -y install wget unzip
 USER 1001
