@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: pukiwiki
+spec:
+  template:
+    metadata:
+      labels:
+        app: pukiwiki
+    spec:
+      containers:
+      - name: pukiwiki-latest
+        image: pukiwiki:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/var/www/html"
+          name: "pukiwiki-volume"
+      volumes:
+      - name: "pukiwiki-volume"
+        persistentVolumeClaim:
+          claimName: pukiwiki-pvc
+  replicas: 1
+  selector:
+    app: pukiwiki
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - pukiwiki-latest
+      from:
+        kind: ImageStreamTag
+        name: pukiwiki:latest
+  - type: ConfigChange

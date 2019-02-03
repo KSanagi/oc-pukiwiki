@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: pukiwiki
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: pukiwiki:latest
+  source:
+    git:
+       uri: https://github.com/KSanagi/oc-pukiwiki
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: centos7:latest
+    type: Docker
+  triggers:
+  - imageChange: {}
+    type: ImageChange
